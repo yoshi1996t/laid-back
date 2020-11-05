@@ -4,6 +4,8 @@
     <span class="name">
       <%= tweet.name %> 
     </span>
+    <%= image_tag tweet.image.variant(resize: '300x300'), class: 'tweet-image' if tweet.image.attached? %>
+  </div>
   <% end %>
 </div>
     
