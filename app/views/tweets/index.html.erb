@@ -6,6 +6,7 @@
     </span>
     <%= image_tag tweet.image.variant(resize: '300x300'), class: 'tweet-image' if tweet.image.attached? %>
     
+    <%= link_to '詳細', tweet_path(tweet.id), method: :get, class:'tweets-show' %>
     <%= link_to '削除', tweet_path(tweet.id), method: :delete, class:'tweets-destroy' %>
     <%= link_to '編集', edit_tweet_path(tweet.id), method: :get, class:'tweets-edit' %>
    
