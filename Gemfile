@@ -58,3 +58,7 @@ gem 'bootstrap'
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 gem 'devise'
+gem "gmaps4rails"
+gem "geocoder"
+gem "gon"
+gem "dotenv-rails"
