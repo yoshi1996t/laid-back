@@ -30,9 +30,18 @@ class TweetsController < ApplicationController
   def show
   end
 
+  # def map
+  #   # respond_to以下の記述によって、
+  #   # remote: trueのアクセスに対して、
+  #   # map.js.erbが変えるようになります。
+  #   respond_to do |format|
+  #     format.js
+  #   end
+  # end
+
   private
   def tweet_params
-    params.require(:tweet).permit(:name, :text, :image).merge(user_id: current_user.id)
+    params.require(:tweet).permit(:name, :text, :image, :address, :latitude, :longitude).merge(user_id: current_user.id)
   end
 
   def set_tweet
