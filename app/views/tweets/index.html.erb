@@ -1,17 +1,83 @@
 <%= render "shared/header" %>
-<div class="contents row">
-  <% @tweets.each do |tweet| %>
-    <p> <%= tweet.text %> </p>
-    <span class="name">
-      <%= tweet.name %> 
-    </span>
-    <%= image_tag tweet.image.variant(resize: '300x300'), class: 'tweet-image' if tweet.image.attached? %>
+
+<main role="main">
+
+
+  <div class="album py-5 bg-light">
+    <div class="container">
     
-    <%= link_to '詳細', tweet_path(tweet.id), method: :get, class:'tweets-show' %>
-    <%= link_to '削除', tweet_path(tweet.id), method: :delete, class:'tweets-destroy' %>
-    <%= link_to '編集', edit_tweet_path(tweet.id), method: :get, class:'tweets-edit' %>
-   
+      <div class="row">
+        <div class="col-md-4">
+        <% @tweets.each do |tweet| %>
+          <div class="card mb-4 shadow-sm">
+            <%= image_tag tweet.image.variant(resize: '200x225'), class: 'card-img-top' if tweet.image.attached? %>
+            
+            <div class="card-body">
+              <p class="card-text">
+                <%= tweet.text %>
+              </p>
+              <%= tweet.text %>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <%= link_to '詳細', tweet_path(tweet.id), method: :get, class:'btn btn-sm btn-outline-secondary' %>
+                  <%= link_to '編集', edit_tweet_path(tweet.id), method: :get, class:'btn btn-sm btn-outline-secondary' %>
+                
+                  
+                </div>
+                <small class="text-muted">いいね機能</small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
   </div>
-  <% end %>
-</div>
-    
+
+</main>
+
+<script src="../../assets/js/vendor/holder.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+  window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
+</script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script><script src="/docs/4.3/assets/js/vendor/anchor.min.js"></script>
+<script src="/docs/4.3/assets/js/vendor/clipboard.min.js"></script>
+<script src="/docs/4.3/assets/js/vendor/bs-custom-file-input.min.js"></script>
+<script src="/docs/4.3/assets/js/src/application.js"></script>
+<script src="/docs/4.3/assets/js/src/search.js"></script>
+<script src="/docs/4.3/assets/js/src/ie-emulation-modes-warning.js"></script>
+  </body>
+</html>
