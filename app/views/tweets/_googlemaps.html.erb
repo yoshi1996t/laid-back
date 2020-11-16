@@ -1,31 +1,63 @@
-<!DOCTYPE html>
-<html lang="ja">
+<div class="gmap">
+  <h2>gmap</h2>
 
-<head>
-<meta charset="UTF-8">
-<title>Sample_GoogleMap</title>
+  <input id="address" type="textbox" value="Sydney, NSW">
+  <input type="button" value="検索" onclick="codeAddress()">
 
-<script src="http://maps.google.com/maps/api/js?key={APIキー}&language=ja"></script>
-
-<style>
-html { height: 100% }
-body { height: 100% }
-#map { height: 100%; width: 100%}
-</style>
-</head>
-
-<body>
-<div id="map"></div>
+  <!-- 地図情報を保存するフォーム -->
+  <%= form_with(model: @tweet, local: true) do |form| %>
+  <!-- 検索値を隠しデータとして送信-->
+  <input type="hidden" name="map[address]" id="hidden_address">
+  
+  
+  <% end %>
+  <div id='map'>
+  </div>
+  
+</div>
 
 <script>
-var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
-var Options = {
- zoom: 15,      //地図の縮尺値
- center: MyLatLng,    //地図の中心座標
- mapTypeId: 'roadmap'   //地図の種類
-};
-var map = new google.maps.Map(document.getElementById('map'), Options);
-</script>
+  let map
+  let geocoder
 
-</body>
-</html>
+  function initMap() {
+    geocoder = new google.maps.Geocoder()
+
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {
+        lat: -34.397,
+        lng: 150.644
+      },
+      zoom: 8
+    });
+  }
+
+  function codeAddress() {
+    let inputAddress = document.getElementById('address').value;
+
+    geocoder.geocode({
+      'address': inputAddress
+    }, function (results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+
+        var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+
+        // タイトルフォームにデフォルト値として検索値を設定
+        let title = document.getElementById('map_title');
+        title.setAttribute("value", inputAddress);
+
+        // 検索値を隠しデータとしてセット
+        let hidden_address = document.getElementById('hidden_address');
+        hidden_address.setAttribute("value", inputAddress);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_KEY']%>&callback=initMap" async defer>
+</script>

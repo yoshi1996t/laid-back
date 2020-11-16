@@ -12,7 +12,6 @@ class TweetsController < ApplicationController
 
   def create
     Tweet.create(tweet_params)
-    
   end
 
   def destroy
