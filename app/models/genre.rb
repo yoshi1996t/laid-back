@@ -10,5 +10,6 @@ class Genre < ActiveHash::Base
     { id: 8, name: '花畑' },
     { id: 9, name: '草原' },
     { id: 10, name: '星・宇宙' },
+    { id: 11, name: 'その他' },
   ]
 end
