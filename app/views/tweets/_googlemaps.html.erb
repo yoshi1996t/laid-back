@@ -1,63 +1,58 @@
-<div class="gmap">
-  <h2>gmap</h2>
+<h2>gmap</h2>
 
-  <input id="address" type="textbox" value="Sydney, NSW">
-  <input type="button" value="検索" onclick="codeAddress()">
+<input id="address" type="textbox" value="GeekSalon">
+<input type="button" value="Encode" onclick="codeAddress()">
+<!-- 下の1行を追加 -->
+<div id="display"></div>
 
-  <!-- 地図情報を保存するフォーム -->
-  <%= form_with(model: @tweet, local: true) do |form| %>
-  <!-- 検索値を隠しデータとして送信-->
-  <input type="hidden" name="map[address]" id="hidden_address">
-  
-  
-  <% end %>
-  <div id='map'>
-  </div>
-  
-</div>
+<div id='map'></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 600px;
+}
+</style>
 
 <script>
-  let map
-  let geocoder
+let map
+let geocoder
+// 下の1行を追加 
+const display = document.getElementById('display')
 
-  function initMap() {
-    geocoder = new google.maps.Geocoder()
+function initMap(){
+  geocoder = new google.maps.Geocoder()
 
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {
-        lat: -34.397,
-        lng: 150.644
-      },
-      zoom: 8
-    });
-  }
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 40.7828, lng:-73.9653},
+    zoom: 12,
+  });
 
-  function codeAddress() {
-    let inputAddress = document.getElementById('address').value;
+  marker = new google.maps.Marker({
+    position:  {lat: 40.7828, lng:-73.9653},
+    map: map
+  });
+}
 
-    geocoder.geocode({
-      'address': inputAddress
-    }, function (results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
 
-        var marker = new google.maps.Marker({
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
           map: map,
           position: results[0].geometry.location
-        });
-
-        // タイトルフォームにデフォルト値として検索値を設定
-        let title = document.getElementById('map_title');
-        title.setAttribute("value", inputAddress);
-
-        // 検索値を隠しデータとしてセット
-        let hidden_address = document.getElementById('hidden_address');
-        hidden_address.setAttribute("value", inputAddress);
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-  }
+      });
+      // 下の1行を追加 
+      display.textContent = "検索結果：" + results[ 0 ].geometry.location
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });   
+}
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_KEY']%>&callback=initMap" async defer>
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_KEY'] %>&callback=initMap" async defer></script>
+
+
+
