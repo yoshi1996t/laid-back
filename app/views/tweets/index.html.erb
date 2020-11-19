@@ -1,5 +1,4 @@
 <%= render "shared/header" %>
-
 <main role="main">
 
 
@@ -24,7 +23,18 @@
                 
                   
                 </div>
-                <small class="text-muted">いいね機能</small>
+                <small class="text-muted">
+                  <% if current_user.already_liked?(tweet) %>
+                    <%= link_to tweet_likes_path(tweet),method: :delete do %>
+                      <i class="fas fa-heart"></i>
+                    <% end %>
+                  <% else %>
+                    <%= link_to tweet_likes_path(tweet),method: :post do %>
+                      <i class="far fa-heart"></i>
+                    <% end %>
+                  <% end %>
+                  <% tweet.likes.count %>
+                </small>
               </div>
             </div>
           </div>

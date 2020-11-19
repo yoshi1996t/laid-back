@@ -2,6 +2,7 @@ class Tweet < ApplicationRecord
   belongs_to :user
   geocoded_by :address
   after_validation :geocode
+  has_many :likes, dependent: :destroy
   
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :genre
