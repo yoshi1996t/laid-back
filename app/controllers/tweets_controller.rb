@@ -3,7 +3,7 @@ class TweetsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
 
   def index
-    @tweets = Tweet.includes(:user)
+    @tweets = Tweet.order('id DESC')
   end
 
   def new

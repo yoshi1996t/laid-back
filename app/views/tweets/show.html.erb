@@ -1,6 +1,6 @@
 <%= render "shared/header" %> 
       
-<h2>gmap</h2>
+<h2>詳細</h2>
 <div id='map'></div>
 
 <style>
@@ -41,7 +41,7 @@
   src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_KEY'] %>&callback=initMap">
 </script>
 
-<%= image_tag @tweet.image ,class:"item-box-img" %>
+
       <ul class="more_list">
         <li>
           <%= link_to '編集', edit_tweet_path(@tweet.id), method: :get %>
